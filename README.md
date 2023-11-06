@@ -1,6 +1,6 @@
 # FAESA academic exercises and assignments
 
-All my projects, assignments, and exercises made in my college: FAESA.
+All my projects, assignments, and exercises done in my Information Systems degree at FAESA.
 
 ## Contact
 
