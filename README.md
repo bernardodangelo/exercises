@@ -1,4 +1,4 @@
-# FAESA Academic exercises and assignments
+# FAESA academic exercises and assignments
 
 ## Contact
 
