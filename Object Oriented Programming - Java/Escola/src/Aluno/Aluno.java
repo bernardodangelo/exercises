@@ -64,9 +64,8 @@ public class Aluno {
 				+ ", media=" + media + "]";
 	}
 	
-	// faltou o compareTo
-	public int compareTo(Aluno outroAluno) {
-		return Double.compare(this.media, outroAluno.media);
-	}
+    public static int compareMedia(Aluno a1, Aluno a2) {
+        return Double.compare(a1.getMedia(), a2.getMedia());
+    }
 	
 }
