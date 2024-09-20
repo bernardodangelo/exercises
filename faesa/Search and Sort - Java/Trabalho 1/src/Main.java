@@ -1,109 +1,82 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		String[] tipos = { "aleatório", "crescente", "decrescente" };
+		int[] quantidades = { 100, 10000 };
 
-        System.out.println("Selecione o tipo de arquivo (1 - Aleatório, 2 - Crescente, 3 - Decrescente): ");
-        int tipo = scanner.nextInt();
-        System.out.println("Selecione a quantidade de elementos (1 - 100, 2 - 10000): ");
-        int quantidade = scanner.nextInt();
+		for (int quantidade : quantidades) {
+			for (String tipo : tipos) {
+				System.out.println("Resultados para n = " + quantidade + " e tipo = " + tipo + ":");
+				
+				Item[] vetor = lerArquivo(tipo, quantidade);
 
-        String arquivo = "C:\\Users\\HP\\eclipse-workspace\\Trabalho 1\\";
+				InsercaoDireta insercaoDireta = new InsercaoDireta(vetor, vetor.length);
+				insercaoDireta.insercaoDireta();
+				System.out.println("Inserção Direta: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ insercaoDireta.getComparacoes() + ", Movimentações: " + insercaoDireta.getMovimentacoes());
 
-        switch (tipo) {
-            case 1:
-                arquivo += "aleatório ";
-                break;
-            case 2:
-                arquivo += "crescente ";
-                break;
-            case 3:
-                arquivo += "decrescente ";
-                break;
-            default:
-                System.out.println("Opção inválida.");
-                return;
-        }
+				SelecaoDireta selecaoDireta = new SelecaoDireta(vetor, vetor.length);
+				selecaoDireta.selecaoDireta();
+				System.out.println("Seleção Direta: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ selecaoDireta.getComparacoes() + ", Movimentações: " + selecaoDireta.getMovimentacoes());
 
-        switch (quantidade) {
-            case 1:
-                arquivo += "100.txt";
-                break;
-            case 2:
-                arquivo += "10000.txt";
-                break;
-            default:
-                System.out.println("Quantidade inválida.");
-                return;
-        }
+				BubbleSort bubbleSort = new BubbleSort(vetor, vetor.length);
+				bubbleSort.bubblesort();
+				System.out.println("BubbleSort: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ bubbleSort.getComparacoes() + ", Movimentações: " + bubbleSort.getMovimentacoes());
 
-        Item[] vetor = lerArquivo(arquivo);
+				ShakerSort shakerSort = new ShakerSort(vetor, vetor.length);
+				shakerSort.shakersort();
+				System.out.println("ShakerSort: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ shakerSort.getComparacoes() + ", Movimentações: " + shakerSort.getMovimentacoes());
 
-        System.out.println("Selecione o algoritmo de ordenação (1 - Inserção Direta, 2 - Seleção Direta, 3 - BubbleSort, 4 - ShakerSort, 5 - ShellSort, 6 - HeapSort, 7 - QuickSort): ");
-        int algoritmo = scanner.nextInt();
+				ShellSort shellSort = new ShellSort(vetor, vetor.length);
+				shellSort.shellSort();
+				System.out.println("ShellSort: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ shellSort.getComparacoes() + ", Movimentações: " + shellSort.getMovimentacoes());
 
-        if (algoritmo == 1) {
-            InsercaoDireta insercaoDireta = new InsercaoDireta(vetor, vetor.length);
-            insercaoDireta.insercaoDireta();
-            System.out.println("Número de comparações: " + insercaoDireta.getComparacoes());
-            System.out.println("Número de movimentações: " + insercaoDireta.getMovimentacoes());
-        } else if (algoritmo == 2) {
-            SelecaoDireta selecaoDireta = new SelecaoDireta(vetor, vetor.length);
-            selecaoDireta.selecaoDireta();
-            System.out.println("Número de comparações: " + selecaoDireta.getComparacoes());
-            System.out.println("Número de movimentações: " + selecaoDireta.getMovimentacoes());
-        } else if (algoritmo == 3) {
-            BubbleSort bubbleSort = new BubbleSort(vetor, vetor.length);
-            bubbleSort.bubblesort();
-            System.out.println("Número de comparações: " + bubbleSort.getComparacoes());
-            System.out.println("Número de movimentações: " + bubbleSort.getMovimentacoes());
-        } else if (algoritmo == 4) {
-            ShakerSort shakerSort = new ShakerSort(vetor, vetor.length);
-            shakerSort.shakersort();
-            System.out.println("Número de comparações: " + shakerSort.getComparacoes());
-            System.out.println("Número de movimentações: " + shakerSort.getMovimentacoes());
-        } else if (algoritmo == 5) {
-            ShellSort shellSort = new ShellSort(vetor, vetor.length);
-            shellSort.shellSort();
-            System.out.println("Número de comparações: " + shellSort.getComparacoes());
-            System.out.println("Número de movimentações: " + shellSort.getMovimentacoes());
-        } else if (algoritmo == 6) {
-            HeapSort heapSort = new HeapSort(vetor, vetor.length);
-            heapSort.heapSort();
-            System.out.println("Número de comparações: " + heapSort.getComparacoes());
-            System.out.println("Número de movimentações: " + heapSort.getMovimentacoes());
-        } else if (algoritmo == 7) {
-            QuickSort quickSort = new QuickSort(vetor, vetor.length);
-            quickSort.quicksort();
-            System.out.println("Número de comparações: " + quickSort.getComparacoes());
-            System.out.println("Número de movimentações: " + quickSort.getMovimentacoes());
-        } else {
-            System.out.println("Opção inválida.");
-        }
-    }
+				HeapSort heapSort = new HeapSort(vetor, vetor.length);
+				heapSort.heapSort();
+				System.out.println("HeapSort: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ heapSort.getComparacoes() + ", Movimentações: " + heapSort.getMovimentacoes());
 
-    public static Item[] lerArquivo(String nomeArquivo) throws FileNotFoundException {
-        File file = new File(nomeArquivo);
-        Scanner sc = new Scanner(file);
+				QuickSort quickSort = new QuickSort(vetor, vetor.length);
+				quickSort.quicksort();
+				System.out.println("QuickSort: " + tipo + " (n=" + quantidade + ") - Comparações: "
+						+ quickSort.getComparacoes() + ", Movimentações: " + quickSort.getMovimentacoes());
 
-        int contador = 0;
-        while (sc.hasNextInt()) {
-            sc.nextInt();
-            contador++;
-        }
+				System.out.println(); 
+			}
+		}
+	}
 
-        Item[] vetor = new Item[contador];
+	public static Item[] lerArquivo(String tipo, int quantidade) throws FileNotFoundException {
+		String arquivo = "C:\\Users\\Consys\\Documents\\exercises\\faesa\\Search and Sort - Java\\Trabalho 1\\";
+		arquivo += tipo + " " + quantidade + ".txt";
+		
+		File file = new File(arquivo);
+		Scanner sc = new Scanner(file);
 
-        sc = new Scanner(file);
-        for (int i = 0; i < contador; i++) {
-            int chave = sc.nextInt();
-            vetor[i] = new Item(chave);
-        }
+		int contador = 0;
+		while (sc.hasNextInt()) {
+			sc.nextInt();
+			contador++;
+		}
 
-        sc.close();
-        System.out.println("Número de elementos lidos: " + contador);
-        return vetor;
-    }
+		Item[] vetor = new Item[contador];
+
+		sc = new Scanner(file);
+		for (int i = 0; i < contador; i++) {
+			int chave = sc.nextInt();
+			vetor[i] = new Item(chave);
+		}
+
+		sc.close();
+		return vetor;
+	}
 }

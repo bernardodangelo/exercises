@@ -1,4 +1,5 @@
 public class InsercaoDireta {
+	
     private Item[] vetor;
     private int nElem;
     private int comparacoes;
